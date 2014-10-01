@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="netty demo" basedir="." default="build">
+
+	<target name="resolve" depends="init">
+		<ivy:retrieve pattern="${lib.dir}/[module]-[type]-[artifact]-[revision].[ext]" />
+	</target>
+
+	<target name="init">
+		<property name="lib.dir" location="${basedir}/lib" />
+		<property name="src.dir" location="${basedir}/src" />
+		<property name="generated.dir" location="${basedir}/generated" />
+		<property name="test.dir" location="${basedir}/test" />
+		<property name="build.dir" location="${basedir}/classes" />
+		<property name="config.dir" location="${basedir}/resources" />
+		<property name="jboss.home" value="/usr/local/jboss7" />
+
+		<path id="project.classpath">
+			<pathelement location="${build.dir}" />
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</path>
+		
+		<copy file="${jboss.home}/bin/client/jboss-client.jar" toDir="${lib.dir}" />
+             <copy file="${jboss.home}/modules/javax/jms/api/main/jboss-jms-api_1.1_spec-1.0.0.Final.jar" toDir="${lib.dir}" />
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${build.dir}" />
+		<echo>Note: protobuf generated .java are not removed. Changes to data.proto require build_pb.sh</echo>
+	</target>
+
+	<target name="build" depends="clean">
+		<mkdir dir="${build.dir}" />
+
+		<javac destdir="${build.dir}" debug="true" deprecation="false" optimize="false" failonerror="true">
+			<src path="${generated.dir}" />
+			<classpath refid="project.classpath" />
+		</javac>
+
+		<javac destdir="${build.dir}" debug="true" deprecation="false" optimize="false" failonerror="true">
+			<src path="${src.dir}" />
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<target name="build.test" depends="build">
+		<javac destdir="${build.dir}" debug="true" deprecation="false" optimize="false" failonerror="true">
+			<src path="${test.dir}" />
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- ================================================================= -->
+
+	<target name="poke1" depends="init">
+        <java fork="yes" classname="poke.demo.Jab">
+            <arg value="jab1" />
+            <arg value="5581"/>
+            <classpath refid="project.classpath" />
+        </java>
+    </target>
+
+    <target name="poke2" depends="init">
+         <java fork="yes" classname="poke.demo.Jab">
+            <arg value="jab2" />
+            <arg value="5582"/>
+            <classpath refid="project.classpath" />
+        </java>
+    </target>
+
+    <target name="poke3" depends="init">
+        <java fork="yes" classname="poke.demo.Jab">
+            <arg value="jab3" />
+            <arg value="5583"/>
+            <classpath refid="project.classpath" />
+        </java>
+    </target>
+
+    <target name="poke4" depends="init">
+        <java fork="yes" classname="poke.demo.Jab">
+            <arg value="jab4" />
+            <arg value="5584"/>
+            <classpath refid="project.classpath" />
+        </java>
+	</target>
+
+	<target name="monitor1" depends="init">
+		<java fork="yes" classname="poke.monitor.HeartMonitor">
+			<arg value="5681" />
+			<classpath refid="project.classpath" />
+		</java>
+	</target>
+
+	<target name="monitor2" depends="init">
+		<java fork="yes" classname="poke.monitor.HeartMonitor">
+			<arg value="5682" />
+			<classpath refid="project.classpath" />
+		</java>
+	</target>
+			
+	<target name="monitor3" depends="init">
+			<java fork="yes" classname="poke.monitor.HeartMonitor">
+				<arg value="5683" />
+				<classpath refid="project.classpath" />
+			</java>
+	</target>
+	
+	<target name="server1" depends="build">
+		<java fork="yes" maxmemory="1024m" classname="poke.server.Server">
+			<arg value="${basedir}/runtime/server1.conf" />
+			<classpath refid="project.classpath" />
+        </java>
+    </target>
+        
+    <!-- SNEHAL- MY CODE -->
+    <target name="server2" depends="build">
+        <java fork="yes" maxmemory="1024m" classname="poke.server.Server">
+            <arg value="${basedir}/runtime/server2.conf" />
+            <classpath refid="project.classpath" />
+        </java>
+    </target>
+    
+    <target name="server3" depends="build">
+        <java fork="yes" maxmemory="1024m" classname="poke.server.Server">
+            <arg value="${basedir}/runtime/server3.conf" />
+            <classpath refid="project.classpath" />
+        </java>
+    </target>
+
+    <target name="server4" depends="build">
+        <java fork="yes" maxmemory="1024m" classname="poke.server.Server">
+            <arg value="${basedir}/runtime/server4.conf" />
+            <classpath refid="project.classpath" />
+        </java>
+    </target>
+    <!-- END SNEHAL CODE -->
+
+
+</project>

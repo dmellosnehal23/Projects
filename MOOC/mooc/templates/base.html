@@ -1,0 +1,106 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+
+<title>{% block title %}{% endblock %}</title>
+
+<link rel="stylesheet" type="text/css" href="{% static "assets/css/foundation.css" %}" />
+<!-- <script src="/home/meet/workspace/mooc/templates/js/vendor/custom.modernizr.js"></script> -->
+</head>
+
+<body>
+	<!-- Nav Bar -->
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="nav-bar right">
+				<ul class="button-group">
+					<li><a href="/classroom/accounts/loggedin" class="button">Home</a></li>
+					<li><a href="/classroom/categories" class="button">Categories</a></li>
+					<li><a href="/classroom/courses" class="button">Courses</a></li>
+					<li><a href="/classroom/courses/discussion" class="button">Discussions</a></li>
+					<li><a href="/classroom/courses/announcement" class="button">Announcements</a></li>
+					<li><a href="/classroom/accounts/get_enrolled_course" class="button">My enrolled Classes</a></li>
+					<li><a href="/classroom/accounts/account_settings" class="button">Account Settings</a></li>
+					<li><a href="/classroom/accounts/logout" class="button">Logout</a></li>
+
+					<!--<li><a href="#" class="button">Profile</a></li>
+         <li><a href="#" class="button">Logout</a></li>-->
+				</ul>
+			</div>
+			<div>
+				<h3>CmpE 275 MOOC</h3>
+				<h5>Team Jargons</h5>
+			</div>
+			<hr />
+		</div>
+	</div>
+	<!-- End Nav -->
+
+	<div class="row">
+			{% block content %}{% endblock %}			
+	</div>
+ <!-- Footer -->
+
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p style="font-size: small;">&copy; Copyright Team Jargons</p>
+        </div>
+        <!-- <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </footer>
+ <!--  <script> -->
+<!--   document.write('<script src=' +
+  ('__proto__' in {} ? '/home/meet/workspace/mooc/templates/js/vendor/zepto' : '/home/meet/workspace/mooc/templates/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  <script src="/home/meet/workspace/mooc/templates/js/foundation.min.js"></script>
+  
+<script src="/home/meet/workspace/mooc/templates/js/foundation/foundation.js"></script>
+ -->  <!--
+  
+
+  
+  <script src="js/foundation/foundation.alerts.js"></script>
+  
+  <script src="js/foundation/foundation.clearing.js"></script>
+  
+  <script src="js/foundation/foundation.cookie.js"></script>
+  
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  
+  <script src="js/foundation/foundation.forms.js"></script>
+  
+  <script src="js/foundation/foundation.joyride.js"></script>
+  
+  <script src="js/foundation/foundation.magellan.js"></script>
+  
+  <script src="js/foundation/foundation.orbit.js"></script>
+  
+  <script src="js/foundation/foundation.placeholder.js"></script>
+  
+  <script src="js/foundation/foundation.reveal.js"></script>
+  
+  <script src="js/foundation/foundation.section.js"></script>
+  
+  <script src="js/foundation/foundation.tooltips.js"></script>
+  
+  <script src="js/foundation/foundation.topbar.js"></script>
+  
+  -->
+  
+ <!--  <script>
+    $(document).foundation();
+  </script> -->
+</body>
+</html>

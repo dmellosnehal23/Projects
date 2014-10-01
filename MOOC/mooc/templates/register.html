@@ -1,0 +1,22 @@
+{% extends "homepage.html" %}
+<html>
+<head>{% block title %}Registration{% endblock %}
+</head>
+<body>
+	
+	{% block content %}
+	{{error}}
+	<a style="font-size: large;" href="/home">Click Here to go back to Homepage </a>
+	<form action="/classroom/register_user/" method="post">{% csrf_token %}
+		username<input type="text" name="username" id="username">
+		email<input type="text" value="email" name="email" id="email">
+		password<input type="password" name="password1" id="password">
+		re-type password<input type="password" name="password2" id="password2">
+		first name<input type="text"  name="first_name" id="first_name">
+		last name<input type="text"  name="last_name" id="last_name">
+		<input type="submit" value="Register">
+	</form>
+	{% endblock %}
+
+</body>
+</html>

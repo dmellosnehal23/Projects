@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Listing categories{% endblock %}
+
+	
+	{% block content %}
+	<!-- {{name}}<br/><br/><br/> -->
+	{% for list in name %}
+<!-- {{list.id}} -->
+<article class="large-6 columns">
+<table>
+<tr>
+<td><label style="font-weight: bold">Category Name : </label></td>
+<td><label>{{list.name}}</label></td>
+</tr>
+	
+<tr>
+<td><label style="font-weight: bold">Description : </label></td>
+<td><label>{{list.description}}</label></td>
+</tr>
+	
+<tr>
+<td><label style="font-weight: bold">Date : </label></td>
+<td><label>{{list.createDate}}</label></td>
+</tr>
+
+	
+		<!-- Category Name:{{list.name}}<br/>
+		Category Description:{{list.description}}<br/>
+		Createion Date:{{list.createDate}}<br/><br/> -->
+
+</table>
+</article>
+	{% endfor %}
+	{% endblock %}

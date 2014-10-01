@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Courses{% endblock %}
+
+
+{% block content %}	
+<!-- {{data}}<br/><br/> -->
+
+{% for list in data %}
+
+<article class="large-6 columns">
+<table>
+
+<tr>
+<td><label style="font-weight: bold">Edit the course {{list.courseID}}: </label></td>
+<td>
+<form action="/classroom/edit_course/" method="post">{% csrf_token %}
+<input type="hidden" name="courseID" value={{list.courseID}}>
+<input type="hidden" name="category" value={{list.category}}>
+<input type="hidden" name="title" value={{list.course_title}}>
+<input type="hidden" name="section" value={{list.course_section}}>
+<input type="hidden" name="dept" value={{list.dept}}>
+<input type="hidden" name="term" value={{list.term}}>
+<input type="hidden" name="year" value={{list.year}}>
+{% for short_list in list.instructor %}
+<input type="hidden" name="instr_name" value={{short_list.name}}>
+<input type="hidden" name="instr_email" value={{short_list.email}}>
+{% endfor %}
+<input type="hidden" name="days" value={{list.days}}>
+<input type="hidden" name="hours" value={{list.hours}}>
+<input type="hidden" name="description" value={{list.description}}>
+<input type="hidden" name="attachment" value={{list.attachment}}>
+<input type="hidden" name="version" value={{list.version}}>
+<input type="submit" value="Edit">
+</form>
+<form action="/classroom/courses/add_announcement_show_page/" method="post">{% csrf_token %}
+<input type="hidden" name="courseID" value={{list.courseID}}>
+<input type="submit" value="Add Announcement">
+</form>
+
+<form action="/classroom/courses/list_announcement_relatedto_course/" method="post">{% csrf_token %}
+<input type="hidden" name="courseID" value={{list.courseID}}>
+<input type="submit" value="Show all Announcements of this course">
+</form>
+
+</td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Category ID : </label></td>
+<td><label style="font-weight: bold">{{list.category}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Title : </label></td>
+<td><label style="font-weight: bold">{{list.title}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Section : </label></td>
+<td><label style="font-weight: bold">{{list.section}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Department : </label></td>
+<td><label style="font-weight: bold">{{list.dept}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Term : </label></td>
+<td><label style="font-weight: bold">{{list.term}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Year : </label></td>
+<td><label style="font-weight: bold">{{list.year}}</label></td>
+</tr>
+
+{% for short_list in list.instructor %}
+<tr>
+<td><label style="font-weight: bold">Instructor Name : </label></td>
+<td><label style="font-weight: bold">{{short_list.name}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Instructor Email : </label></td>
+<td><label style="font-weight: bold">{{short_list.email}}</label></td>
+</tr>
+{% endfor %}
+
+
+<tr>
+<td><label style="font-weight: bold">Days Available : </label></td>
+{% for short_list in list.days %}
+<td><label style="font-weight: bold">{{short_list}}</label></td>
+{% endfor %}
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Hours Available : </label></td>
+{% for short_list in list.hours %}
+<td><label style="font-weight: bold">{{short_list}}</label></td>
+{% endfor %}
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Description : </label></td>
+<td><label style="font-weight: bold">{{list.description}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Attachment : </label></td>
+<td><label style="font-weight: bold">{{list.attachment}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Versiom : </label></td>
+<td><label style="font-weight: bold">{{list.version}}</label></td>
+</tr>
+
+
+
+</table>
+</article>
+{% endfor %}
+{% endblock %}	

@@ -1,0 +1,4 @@
+connect
+#create queue
+/subsystem=messaging/hornetq-server=default/jms-queue=requestQueue/:add(entries=["java:jboss/exported/jms/queue/requestqueue"],durable=false)
+/subsystem=messaging/hornetq-server=default/jms-queue=responseQueue/:add(entries=["java:jboss/exported/jms/queue/responsequeue"],durable=false)

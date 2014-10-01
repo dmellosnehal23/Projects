@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Listing Announcements only related to course{% endblock %}
+
+	
+	{% block content %}
+	<!-- {{name}}<br/><br/><br/>
+	{{data}} -->
+	{% for list in data %}
+	
+<article class="large-6 columns">
+<table>
+
+{% if courseID in list.courseId %}
+<tr>
+<td><label style="font-weight: bold">Announcement Title: </label></td>
+<td><label>{{list.title}}</label></td>
+</tr>
+	
+<tr>
+<td><label style="font-weight: bold">Announcement Description : </label></td>
+<td><label>{{list.description}}</label></td>
+</tr>
+<tr>
+<td><label style="font-weight: bold">Announcement id : </label></td>
+<td><label>{{list.id}}</label></td>
+</tr>
+
+<form action="/classroom/courses/delete_announcement/" method="post">{% csrf_token %}
+<input type="hidden" name="announcement_id" value={{list.id}}>
+<input type="submit" value="delete this Announcement">
+</form>
+
+<form action="/classroom/courses/update_announcement_show_page/" method="post">{% csrf_token %}
+<input type="hidden" name="announcement_id" value={{list.id}}>
+<input type="hidden" name="announcement_title" value={{list.announcement_title}}>
+<input type="hidden" name="announcement_description" value={{list.announcement_description}}>
+<input type="submit" value="edit this Announcement">
+</form>
+    
+{% endif %}
+</table>
+</article>
+	{% endfor %}
+	{% endblock %}

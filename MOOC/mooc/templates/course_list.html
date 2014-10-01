@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Listing categories{% endblock %}
+
+{% block content %}	
+<!-- {{data}} -->
+{% for list in data %}
+
+<article class="large-12 columns">
+
+<table>
+
+<tr>
+<td><label style="font-weight: bold">Enroll course </label></td>
+<td><label>
+<form action="/classroom/enroll_in_course/" method="post">
+<input type="hidden" name="courseid" value={{list.id}}>
+<input type="submit" value="Enroll">
+</form>
+</label><br/></td>
+</tr>
+<tr>
+<td><label style="font-weight: bold">Title : </label></td>
+<td><label>{{list.title}}</label><br/></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Section : </label></td>
+<td><label>{{list.section}}</label><br/></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Department : </label></td>
+<td><label>{{list.dept}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Term : </label></td>
+<td><label>{{list.term}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Year : </label></td>
+<td><label>{{list.year}}</label></td>
+</tr>
+
+{% for short_list in list.instructor %}
+<tr>
+<td><label style="font-weight: bold">Instructor Name : </label></td>
+<td><label>{{short_list.name}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Instructor Email : </label></td>
+<td><label>{{short_list.email}}</label></td>
+</tr>
+{% endfor %}
+
+
+
+<tr>
+<td><label style="font-weight: bold">Days Available : </label></td>
+{% for short_list in list.days %}
+<td><label>{{short_list}}</label></td>
+{% endfor %}
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Hours Available : </label></td>
+{% for short_list in list.hours %}
+<td><label>{{short_list}}</label></td>
+{% endfor %}
+</tr>
+
+
+<tr>
+<td><label style="font-weight: bold">Description : </label></td>
+<td><label>{{list.description}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Attachment : </label></td>
+<td><label>{{list.attachment}}</label></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Version : </label></td>
+<td><label>{{list.version}}</label></td>
+</tr>
+ 
+<br/><br/>
+
+</table>
+</article>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "homepage.html" %}
+
+{% block title %}login{% endblock %}
+{% block content %}
+
+      <article class="large-6">
+{{error}}<br/><br/>
+        <h4><a href="/home">Login</a></h4>
+          <!--<h5>Login</h5>-->
+
+          <form action="/classroom/accounts/auth/" method="post">{% csrf_token %}
+              <table>
+<!--               <tr><td>{{error}}</td></tr> -->
+              <tr>
+                  <td><label style="font-weight: bold">Email address : </label></td>
+                  <td><input type="text" placeholder="User Name" id="email" name="email"></td>
+              </tr>
+              <tr>
+                  <td><label style="font-weight: bold">Password : </label></td>
+                  <td><input type="password" placeholder="Password" id="password" name="password"></td>
+              </tr>
+
+
+              <tr>
+                    <td style="text-align: center"><input type="submit" class="button-group" onsubmit="" value="Login"></td>
+                    <td style="text-align: center"><input type="reset" class="button-group" onsubmit="" value="Cancel"></td>
+                    <!--<td style="text-align: center"><input type="reset" class="button-group" onsubmit="" value="Reset"></td>-->
+              </tr>
+                  <tr>
+                      <td>
+                      <label style="font-size:small">Not Registered yet? </label></td>
+                      <td><a style="font-size: small" href="/classroom/register/">Click Here</a> to Register.
+                      </td>
+                  </tr>
+
+              </table>
+          </form>
+          </div>
+        </div>
+      </article>
+
+{% endblock %}

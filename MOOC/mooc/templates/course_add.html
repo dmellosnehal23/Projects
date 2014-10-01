@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Add Course{% endblock %}
+
+{% block content %}
+
+<article class="large-6 columns">
+<form action="/classroom/add_course/" method="post">{% csrf_token %}
+<table>
+<!-- <tr>
+<td>
+{{data}}
+{% for list in data %}
+Category Name:{{list.name}}<br/>
+Category Id:{{list.id}}<br/><br/>
+{% endfor %}
+</td>
+</tr> -->
+<!-- {{data}} -->
+<tr>
+<td><label style="font-weight: bold">Category : </label></td>
+<td>
+<select id="category" name="category">
+{% for list in data %}
+<option value={{list.id}} selected="selected">{{list.name}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Title : </label></td>
+<td><input type="text" id="course_title" name="course_title"></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Section : </label></td>
+<td><input type="text" id="course_section" name="course_section">
+</td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Department : </label></td>
+<td><input type="text" name="dept" id="dept">
+</td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Term : </label></td>
+<td><input type="text" name="term" id="term">
+</td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Year : </label></td>
+<td><input type="text" name="year" id="year"></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Instructor Name : </label></td>
+<td><input type="text" name="instr_name" id="instr_name"></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Instructor Email : </label></td>
+<td><input type="text" name="instr_email" id="instr_email"></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Days : </label></td>
+<td>
+<select id="days" name="days">
+<option value="monday" selected="selected">Monday</option>
+<option value="wednesday">Wednesday</option>
+<option value="thursday">Thursday</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Time : </label></td>
+<td>
+<select id="time" name="time">
+<option value="8:00am" selected="selected">8:00 am</option>
+<option value="9:15am">9:15 am</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Description : </label>
+</td>
+<td><textarea rows="5" cols="17" name="description"></textarea>
+</td>
+</tr>
+
+<tr>
+<td>
+<label style="font-weight: bold">Attachment : </label></td>
+<td><input type="file" value="upload" name="attachment">
+</td>
+</tr>
+
+<tr>
+<td>
+<input type="submit" value="Add Course">
+</td>
+
+<td>
+<input type="reset" value="Reset">
+</td>
+</tr>
+
+</table>
+</form>
+</article>
+ {% endblock %}

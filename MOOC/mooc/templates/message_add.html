@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Add Messages{% endblock %}
+
+{% block content %}
+<article class="large-6 columns">
+<form action="/courses/add_message_page/" method="post">{% csrf_token %}
+{{discussion_id}}
+{{discussion_title}}
+<table>	
+
+<tr>
+<td><label style="font-weight: bold">reply : </label></td>
+<td><input type="text" name="content" id="content"></td>
+</tr>
+
+<tr>
+<td><input type="submit" value="Add Message"></td>
+</tr>		
+		
+</table>
+</form>
+</article>
+{% endblock %}

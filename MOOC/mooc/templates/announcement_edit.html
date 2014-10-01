@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Edit an Announcement{% endblock %}
+
+{% block content %}
+
+<article class="large-6 columns">
+<form action="/classroom/courses/edit_announcement/" method="post">{% csrf_token %}
+	
+<table>	
+{{announcement_title}}
+<tr>
+<td><label style="font-weight: bold">Title : </label></td>
+<td><input type="text" name="announcement_title" id="announcement_title" value={{announcement_title}}></td>
+</tr>
+
+<tr>
+<td><label style="font-weight: bold">Description : </label></td>
+<td><input type="text" name="announcement_description" id="announcement_description" value={{announcement_description}}></td>
+</tr>
+
+<td><input type="hidden" name="announcement_id" id="announcement_id" value={{announcement_id}}>
+
+<tr>
+<td><input type="submit" value="Edit Announcement"></td>
+</tr>		
+		
+</table>
+</form>
+</article>
+
+{% endblock %}

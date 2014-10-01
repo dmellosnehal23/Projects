@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Add Course{% endblock %}
+
+{% block content %}
+<form action="/classroom/update_course/" method="post">{% csrf_token %}
+{{data}}
+<br/>
+<input type="hidden" name="courseID" value={{courseID}}>
+Category<input type="text" name="category" value={{category}}>
+Title<input type="text" name="title" value={{title}}>
+Section<input type="text" name="section" value={{section}}>
+Department<input type="text" name="dept" value={{dept}}>
+Term<input type="text" name="term" value={{term}}>
+Year<input type="text" name="year" value={{year}}>
+{% for short_list in instructor %}
+Instructor Name<input type="text" name="instr_name" value={{short_list.name}}>
+Instructor Email<input type="text" name="instr_email" value={{short_list.email}}>
+{% endfor %}
+
+Description<input type="text" name="description" value={{description}}>
+Attachment<input type="file" name="abc" value="upload" name="attachment" value={{attachment}}>
+Version<input type="text" name="version" value={{version}}>
+
+
+<input type="submit" value="Update">
+</form>
+{% endblock %}

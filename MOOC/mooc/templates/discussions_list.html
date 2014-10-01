@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Listing discussions{% endblock %}
+
+	
+	{% block content %}
+	{{data}}<br/><br/><br/>
+	<label style="font-weight: bold">Discussion Name : </label>
+	{% for list in data %}
+	
+<article class="large-6 columns">
+<table>
+<tr>
+<td></td>
+<form action="/classroom/courses/add_message_page/" method="post">
+<td><label><input type="title" value={{list.title}}></label></td>
+<td><label><input type="id" value={{list.id}}></label></td>
+<input type="submit" value={{list.title}}>
+</form>
+</tr>
+	
+</table>
+</article>
+	{% endfor %}
+	{% endblock %}

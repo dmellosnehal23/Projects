@@ -1,0 +1,156 @@
+SETUP Postgresql 
+1. Install under /Library/PostgreSQL
+	a. use existing DB "postgres"
+
+SETUP JBOSS 
+1. 
+	Either install jboss at /usr/local/jboss7 OR
+	create symlink : %> sudo ln -s $JBOSS_SOURCE_DIR /usr/local/jboss7
+
+2. set env variable
+ 	%> export JBOSS_HOME=/usr/local/jboss7
+	
+3. standalone-full.xml
+	a. add data source under <datasources>
+						<datasource jndi-name="java:jboss/datasources/ImageUtility" pool-name="ImageUtility" enabled="true" use-java-context="true">
+		                    <connection-url>jdbc:postgresql://localhost:5432/postgres</connection-url>
+		                    <driver-class>org.postgresql.Driver</driver-class>
+		                    <driver>org.postgresql</driver>
+		                    <pool>
+		                        <min-pool-size>1</min-pool-size>
+		                        <max-pool-size>4</max-pool-size>
+		                        <prefill>false</prefill>
+		                        <use-strict-min>false</use-strict-min>
+		                        <flush-strategy>FailingConnectionOnly</flush-strategy>
+		                    </pool>
+		                    <security>
+		                        <user-name>postgres</user-name>
+		                        <password>postgres</password>
+		                    </security>
+		                    <validation>
+		                        <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+		                        <validate-on-match>false</validate-on-match>
+		                        <background-validation>false</background-validation>
+		                    </validation>
+		                </datasource>
+    b. add queue under </jms-destinations>
+							<jms-queue name="requestQueue">
+		                        <entry name="queue/requestqueue"/>
+		                        <entry name="java:jboss/exported/jms/queue/requestqueue"/>
+		                    </jms-queue>
+		                    <jms-queue name="responseQueue">
+		                        <entry name="queue/responsequeue"/>
+		                        <entry name="java:jboss/exported/jms/queue/responsequeue"/>
+		                    </jms-queue>
+		
+    c. add postgresql driver under <drivers>
+						<driver name="org.postgresql" module="org.postgresql">
+	                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+	                    </driver>
+			
+4. Add $JBOSS_HOME/modules/org/postgresql/main/module.xml (NOTE : no space should be kept at the beginning of 1st line)
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="org.postgresql">
+	<resources>
+		<resource-root path="postgresql-9.1-901.jdbc4.jar"/>
+	</resources>
+	<dependencies>
+		<module name="javax.api"/>
+		<module name="javax.transaction.api"/>
+	</dependencies>
+</module>
+		
+5. copy /Library/PostgreSQL/pgJDBC/postgresql-9.1-901.jdbc4.jar to $JBOSS_HOME/modules/org/postgresql/main/postgresql-9.1-901.jdbc4.jar
+
+
+CREATE JBOSS Application user
+	%> $JBOSS_HOME/bin/add-user.sh
+	1. choose application user (b)
+	2. choose ApplicationRealm
+	3. put user name : test 3
+	4. put passwprd : pass3
+	5. add group : guest
+
+example : 
+	Last login: Wed Apr  3 00:42:39 on console
+	snehal@Snehals-MacBook-Pro ~> /usr/local/jboss7/bin/add-user.sh
+
+	What type of user do you wish to add? 
+	 a) Management User (mgmt-users.properties) 
+	 b) Application User (application-users.properties)
+	(a): b
+
+	Enter the details of the new user to add.
+	Realm (ApplicationRealm) : 
+	Username : test3
+	Password : 
+	Re-enter Password : 
+	What roles do you want this user to belong to? (Please enter a comma separated list, or leave blank for none) : guest
+	About to add user 'test3' for realm 'ApplicationRealm'
+	Is this correct yes/no? yes
+	Added user 'test3' to file '/Users/snehal/jboss-as-7.1.1.Final/standalone/configuration/application-users.properties'
+	Added user 'test3' to file '/Users/snehal/jboss-as-7.1.1.Final/domain/configuration/application-users.properties'
+	Added user 'test3' with roles guest to file '/Users/snehal/jboss-as-7.1.1.Final/standalone/configuration/application-roles.properties'
+	Added user 'test3' with roles guest to file '/Users/snehal/jboss-as-7.1.1.Final/domain/configuration/application-roles.properties'
+	snehal@Snehals-MacBook-Pro ~>	 
+
+
+RUN JBOSS
+	$JBOSS_HOME/bin/standalone.sh  -c standalone-full.xml
+	
+	
+
+SETUP EJB-JPA Project (BASE_DIR = $SOME_DIR/ejb3-jpa2-final)
+1. Create DB tables from Entities (Via Eclipse)	
+	a. Modify persistence.xml
+	b. Comment <persistence-unit name="ImageUtility" transaction-type="JTA">
+	c. Add <persistence-unit name="ImageUtility" transaction-type="RESOURCE_LOCAL">
+	
+	
+2. Deploy imageUtility.jar	
+	$BASE_DIR> ant deploy
+	
+	Verify :
+		deploy:
+		     [copy] Copying 1 file to /usr/local/jboss7/standalone/deployments
+		     [copy] Copying 1 file to /Users/snehal/MyProjects/netty-jpa/core-netty-final/lib
+	
+
+
+SETUP Netty Project	(BASE_DIR = $SOME_DIR/core-netty-final)
+1. Verify imageUtility.jar exist under $BASE_DIR/lib
+
+2. Modify $BASE_DIR/runtime/Server[1-4].conf to create appropriate topology
+	a. Adding new Resource
+		"routing": [
+			{
+		         "name": "image.add",
+		         "id": 40,
+		         "clazz": "poke.resources.ImageResource",
+		         "enabled": false
+		    }
+		]
+	b. Adding new Slave servers
+		"slaves" : [
+			{
+					"nodeId" : "two",
+					"port" : "5582",
+					"mgmtPort" : "5682"
+			},
+			{
+					"nodeId" : "three",
+					"port" : "5583",
+					"mgmtPort" : "5683"
+			}
+		]
+
+
+3. Start Servers
+	$BASE_DIR> ant server[1-4]
+	
+4. Start Demo
+	$BASE_DIR> ant poke[1-4]
+	
+5. verify errors if any
+
+6. Check in PostgreSQL for inserted image entries	

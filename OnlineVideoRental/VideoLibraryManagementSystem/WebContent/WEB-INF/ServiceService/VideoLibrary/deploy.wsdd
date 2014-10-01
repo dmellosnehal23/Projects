@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ServiceService WSDL service -->
+
+  <service name="Service" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://VideoLibrary"/>
+      <parameter name="wsdlServiceElement" value="ServiceService"/>
+      <parameter name="schemaQualified" value="http://VideoLibrary,http://entity"/>
+      <parameter name="wsdlServicePort" value="Service"/>
+      <parameter name="className" value="VideoLibrary.Service"/>
+      <parameter name="wsdlPortType" value="Service"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="login" qname="operNS:login" returnQName="retNS:loginReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:emailId" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:pwd" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createMember" qname="operNS:createMember" returnQName="retNS:createMemberReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:memberId" type="tns:long"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:fName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:emailId" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:pwd" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:address" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:city" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:state" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:zipCode" type="tns:long"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userType" type="tns:int"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:monthlySubFee" type="tns:int"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:totalOutstandingMovies" type="tns:int"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:rentForMoviesIssued" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="memberFromID" qname="operNS:memberFromID" returnQName="retNS:memberFromIDReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="updatePerson" qname="operNS:updatePerson" returnQName="retNS:updatePersonReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lastName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:emailId" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:address" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:city" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:state" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:zipCode" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="displayMovies" qname="operNS:displayMovies" returnQName="retNS:displayMoviesReturn" returnType="rtns:Movie" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="displayPremiumMembers" qname="operNS:displayPremiumMembers" returnQName="retNS:displayPremiumMembersReturn" returnType="rtns:PremiumMembers" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="displayPerson" qname="operNS:displayPerson" returnQName="retNS:displayPersonReturn" returnType="rtns:Person" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="displaySimpleMembers" qname="operNS:displaySimpleMembers" returnQName="retNS:displaySimpleMembersReturn" returnType="rtns:SimpleMembers" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createMovie" qname="operNS:createMovie" returnQName="retNS:createMovieReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieBanner" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieReleaseDate" type="tns:date"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieRent" type="tns:float"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieCategory" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:availableCopies" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteMovie" qname="operNS:deleteMovie" returnQName="retNS:deleteMovieReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieId" type="tns:int"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteMember" qname="operNS:deleteMember" returnQName="retNS:deleteMemberReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="updateMovie" qname="operNS:updateMovie" returnQName="retNS:updateMovieReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieId" type="tns:int"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieBanner" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieReleaseDate" type="tns:date"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieRent" type="tns:float"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieCategory" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:availableCopies" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="updateMovieRequest" qname="operNS:updateMovieRequest" returnQName="retNS:updateMovieRequestReturn" returnType="rtns:Movie" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieId" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="searchMovie" qname="operNS:searchMovie" returnQName="retNS:searchMovieReturn" returnType="rtns:Movie" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:attributeName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:attributeValue" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="searchPerson" qname="operNS:searchPerson" returnQName="retNS:searchPersonReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:attributeName" type="tns:string"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:attributeValue" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addToCart" qname="operNS:addToCart" returnQName="retNS:addToCartReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieId" type="tns:int"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:memberId" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="dopayment" qname="operNS:dopayment" returnQName="retNS:dopaymentReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dueAmount" type="tns:float"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="getMovieInformationWithIssuedByUsers" qname="operNS:getMovieInformationWithIssuedByUsers" returnQName="retNS:getMovieInformationWithIssuedByUsersReturn" returnType="rtns:Movie" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieId" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="displayCart" qname="operNS:displayCart" returnQName="retNS:displayCartReturn" returnType="rtns:Cart" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="removeMovieFromCart" qname="operNS:removeMovieFromCart" returnQName="retNS:removeMovieFromCartReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:cartId" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="isPaymentDue" qname="operNS:isPaymentDue" returnQName="retNS:isPaymentDueReturn" returnType="rtns:float" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="emptyCart" qname="operNS:emptyCart" returnQName="retNS:emptyCartReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="issuedMovieList" qname="operNS:issuedMovieList" returnQName="retNS:issuedMovieListReturn" returnType="rtns:Transactions" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="rentMovie" qname="operNS:rentMovie" returnQName="retNS:rentMovieReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://entity" qname="pns:cart_details_array" type="tns:Cart"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userType" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="returnMovie" qname="operNS:returnMovie" returnQName="retNS:returnMovieReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:movieId" type="tns:int"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userType" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://VideoLibrary" xmlns:retNS="http://VideoLibrary" xmlns:rtns="http://entity" name="getUserInformationWithIssuedMovies" qname="operNS:getUserInformationWithIssuedMovies" returnQName="retNS:getUserInformationWithIssuedMoviesReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://VideoLibrary" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:membershipId" type="tns:long"/>
+      </operation>
+      <parameter name="allowedMethods" value="dopayment emptyCart searchMovie updateMovieRequest displaySimpleMembers memberFromID issuedMovieList getUserInformationWithIssuedMovies displayPerson createMember login displayCart isPaymentDue searchPerson addToCart deleteMovie displayPremiumMembers returnMovie updateMovie updatePerson getMovieInformationWithIssuedByUsers deleteMember displayMovies createMovie rentMovie removeMovieFromCart"/>
+
+      <typeMapping xmlns:ns="http://entity" qname="ns:Movie" type="java:entity.Movie" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://entity" qname="ns:Transactions" type="java:entity.Transactions" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://entity" qname="ns:SimpleMembers" type="java:entity.SimpleMembers" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://entity" qname="ns:Person" type="java:entity.Person" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://VideoLibrary" xmlns:cmp-ns="http://entity" qname="ns:ArrayOf_tns1_Person" type="java:entity.Person[]" innerType="cmp-ns:Person" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://entity" qname="ns:PremiumMembers" type="java:entity.PremiumMembers" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://VideoLibrary" xmlns:cmp-ns="http://entity" qname="ns:ArrayOf_tns1_Transactions" type="java:entity.Transactions[]" innerType="cmp-ns:Transactions" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://entity" qname="ns:Cart" type="java:entity.Cart" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

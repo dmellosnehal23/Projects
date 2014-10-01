@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{{name}}
+      <article class="large-6">
+
+        <h4><a href="index.html">Login</a></h4>
+          <!--<h5>Login</h5>-->
+
+          <form>
+              <table>
+              <tr>
+                  <td><label style="font-weight: bold">User Name : </label></td>
+                  <td><input type="text" placeholder="User Name" id="txt1"></td>
+              </tr>
+              <tr>
+                  <td><label style="font-weight: bold">Password : </label></td>
+                  <td><input type="password" placeholder="Password" id="txt2"></td>
+              </tr>
+
+
+              <tr>
+                    <td style="text-align: center"><input type="submit" class="button-group" onsubmit="" value="Login"></td>
+                    <td style="text-align: center"><input type="button" class="button-group" onsubmit="" value="Cancel"></td>
+                    <!--<td style="text-align: center"><input type="reset" class="button-group" onsubmit="" value="Reset"></td>-->
+              </tr>
+                  <tr>
+                      <td>
+                      <label style="font-size:small">Not Registered yet? </label></td>
+                      <td><a style="font-size: small" href="user.html">Click Here</a> to Register.
+                      </td>
+                  </tr>
+
+              </table>
+          </form>
+          </div>
+        </div>
+      </article>
+
+{% endblock %}

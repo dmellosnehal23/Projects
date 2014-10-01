@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Add Discussions{% endblock %}
+
+{% block content %}
+<article class="large-6 columns">
+<form action="/classroom/courses/add_discussion/" method="post">{% csrf_token %}
+	
+<table>	
+
+<tr>
+<td><label style="font-weight: bold">Title : </label></td>
+<td><input type="text" name="discussion_title" id="discussion_title"></td>
+</tr>
+
+<tr>
+<td><input type="submit" value="Add Discussion"></td>
+</tr>		
+		
+</table>
+</form>
+</article>
+{% endblock %}

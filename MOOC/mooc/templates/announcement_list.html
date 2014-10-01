@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Listing Announcements{% endblock %}
+
+	
+	{% block content %}
+	<!-- {{data}}<br/><br/><br/> -->
+
+{% for list in data %}
+	
+<article class="large-6 columns">
+<table>
+<tr>
+<td><label style="font-weight: bold">Announcement Title: </label></td>
+<td><label>{{list.title}}</label></td>
+</tr>
+	
+<tr>
+<td><label style="font-weight: bold">Announcement Description : </label></td>
+<td><label>{{list.description}}</label></td>
+</tr>
+<tr>
+<td><label style="font-weight: bold">Announcement id : </label></td>
+<td><label>{{list.id}}</label></td>
+</tr>
+<form action="/classroom/courses/delete_announcement/" method="post">{% csrf_token %}
+<input type="hidden" name="announcement_id" value={{list.id}}>
+<input type="submit" value="delete this Announcement">
+</form>
+</table>
+</article>
+	{% endfor %}
+
+
+		{% endblock %}

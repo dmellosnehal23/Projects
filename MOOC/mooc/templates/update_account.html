@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+<html>
+<head>{% block title %}Update Account{% endblock %}
+</head>
+<body>
+	
+	{% block content %}
+	<article class="large-6 columns">
+	<form action="/classroom/accounts/update_user/" method="post">{% csrf_token %}
+	
+	<table>
+		<tr>
+        <td><label style="font-weight: bold">User Name : </label></td>
+        <td><input type="text" name="username" id="username" value={{username}}></td>
+        </tr>
+	
+		<tr>
+        <td><label style="font-weight: bold">Email : </label></td>
+        <td><input type="text" name="email" id="email" value={{email}}></td>
+        </tr>
+	
+		<tr>
+        <td><label style="font-weight: bold">Password : </label></td>
+        <td><input type="password" name="password1" id="password1" value={{password}}></td>
+        </tr>
+        
+        <tr>
+        <td><label style="font-weight: bold">Re-Type Password : </label></td>
+        <td><input type="password" name="password2" id="password2" value={{password}}></td>
+        </tr>
+	
+		<tr>
+        <td><label style="font-weight: bold">First Name : </label></td>
+        <td><input type="text" name="first_name" id="first_name" value={{first_name}}></td>
+        </tr>
+	
+		<tr>
+        <td><label style="font-weight: bold">Last Name : </label></td>
+        <td><input type="text" name="last_name" id="last_name" value={{last_name}}></td>
+        </tr>
+	
+		<tr>
+        <td><input type="submit" value="Update My Account"></td>
+        </tr>
+	<!-- 
+	
+		username<input type="text" name="username" id="username">
+		email<input type="text" value="email" name="email" id="email">
+		password<input type="password" name="password1" id="password">
+		re-type password<input type="password" name="password2" id="password2">
+		first name<input type="text"  name="first_name" id="first_name">
+		last name<input type="text"  name="last_name" id="last_name">
+		<input type="submit" value="Update My Account"> -->
+		
+	</table>
+	</form>
+	</article>
+	{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<project name="JPA EJB" default="build" basedir=".">
+
+	<target name="init">
+		<property name="src.dir" value="${basedir}/src" />
+		<!--<property name="test.dir" value="${basedir}/test" />-->
+		<property name="classes.dir" value="${basedir}/classes" />
+		<property name="lib.dir" location="${basedir}/lib" />
+		<property name="out.dir" value="${basedir}/build" />
+		<property name="junit.home" value="/Users/gash/Developer" />
+		<property name="postgres.home" value="/Library/PostgreSQL/" />
+
+		<!-- jboss 7.1.1 final -->
+		<property name="jboss.home" value="/usr/local/jboss7" />
+		<property name="jboss.jars" value="${jboss.home}/modules" />
+		<property name="jboss.deploy" value="${jboss.home}/standalone/deployments" />
+		<path id="classpath711">
+			<pathelement location="${base.dir}/conf/log4j.properties" />
+			<pathelement location="${basedir}/lib/log4j-1.2.16.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/logmanager/log4j/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/logging/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/javax/transaction/api/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/javax/ejb/api/main/*.jar" />
+			<pathelement location="${jboss.home}/bin/client.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/marshalling/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/xnio/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/remoting3/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/xnio/nio/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/sasl/main/*.jar" />
+			<pathelement location="${jboss.home}/modules/org/jboss/marshalling/river/main/*.jar" />
+		</path>
+
+		<path id="project.classpath">
+			<fileset dir="${jboss.jars}">
+				<include name="**/*.jar" />
+			</fileset>
+			<pathelement location="${jboss.home}/bin/client.jar" />
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+			<pathelement location="${classes.dir}" />
+		</path>
+		
+		<copy file="${postgres.home}/pgJDBC/postgresql-9.1-901.jdbc4.jar" toDir="${lib.dir}" />
+	</target>
+
+	<target name="build" depends="clean">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${out.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}">
+			<classpath refid="project.classpath" />
+		</javac>
+
+		<!--<javac srcdir="${test.dir}" destdir="${classes.dir}">
+			<classpath refid="project.classpath" />
+		</javac>-->
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${classes.dir}" quiet="true" />
+		<delete dir="${out.dir}" quiet="true" />
+	</target>
+
+	<target name="deploy" depends="clean,jar">
+		<copy file="${out.dir}/imageUtility.jar" toDir="${jboss.deploy}" />
+		<copy file="${out.dir}/imageUtility.jar" toDir="${basedir}/../core-netty-final/lib" />
+	</target>
+
+	<target name="jar" depends="build">
+		<mkdir dir="${out.dir}/ejb-jar/META-INF" />
+		<mkdir dir="${out.dir}/ejb-jar/lib" />
+
+		<!-- for jboss 6.0 we do not deploy the log-queue-service.xml -->
+		<!-- copy file="${basedir}/conf/log-queue-service.xml" toDir="${out.dir}/ejb-jar" / -->
+		<copy file="${src.dir}/META-INF/persistence.xml" toDir="${out.dir}/ejb-jar/META-INF" />
+
+		<copy toDir="${out.dir}/ejb-jar">
+			<fileset dir="${classes.dir}">
+				<include name="**/jpa/entities/**" />
+				<include name="**/jpa/ejb/**" />
+			</fileset>
+		</copy>
+
+		<jar destfile="${out.dir}/imageUtility.jar">
+			<fileset dir="${out.dir}/ejb-jar">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="test" depends="build">
+		<copy file="${basedir}/resources/log4j.properties" toDir="${classes.dir}" />
+
+		<junit printsummary="yes" fork="yes" haltonfailure="yes">
+			<classpath refid="project.classpath" />
+			<formatter type="plain" />
+			<test name="gash.jpa.ejb.JMSRequestorTest" />
+		</junit>
+	</target>
+	
+</project>
